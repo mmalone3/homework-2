@@ -5,7 +5,12 @@ import gradio
 async def custom_chatgpt(user_input):
     messages = [{"role": "user", "content": user_input}]
     
-    client = AsyncOpenAI(api_key="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")
+    
+    # Read the API key from a file
+    with open('api_key.txt', 'r') as f:
+        api_key = f.read().strip()
+    
+    client = AsyncOpenAI(api_key=api_key)
     
     response = await client.chat.completions.create(
         model="gpt-3.5-turbo",
